@@ -198,36 +198,10 @@ public class UserController {
         if (user == null || user.getUserId() == null)
             return new ResponseEntity<Result>(ResultGenerator.genFailResult("邮箱或密码错误"), HttpStatus.BAD_REQUEST);
 
-        // 用户第一次访问网站，没有cookie，也就没有SESSION，那么我这里的session是否为null呢？
-        // 或者，虽然不为null，但是set-cookie中，value的值可能还没有产生呢？
-        // 没有cookie的情况postman好像还需要配置一下，不知道是否麻烦，TODO 但是之后不管怎么样都得测试一下上面这种情况。
+        // 目前采用“session不能因为用户的操作刷新”的模式，所以设置了server.servlet.session.cookie.max-age=604800，最长时间为7天
+        // TODO 之后写一个脚本，定时清理redis里面「creationTime+maxInactiveInterval>现在时间戳」的session记录
         session.setAttribute("userId", user.getUserId());
         session.setMaxInactiveInterval(86400 * 7);
-
-         /**
-          设置浏览器的session时间，好像直接通过上面的setMaxInactiveInterval就行了，不需要下面这种操作了。
-          但是session的path，安全性等等怎么设置呢？
-          刚才测试之后，发现postman的set-cookie里面也没有设置时长，也就是说只有redis里面的更新了。
-
-          ※ 但是或许浏览器的SESSION根本不需要有效时间，浏览器就一直保存着，一直使用，某一次使用服务端发现已经过期了，【？】应该在controller
-          之前已经设置了新的session，也就是说使用拦截器拿到SESSION的值去redis里面查不到了，这时候拦截器也就要提醒用户重新登录了。
-          而新的SESSION在set-cookie再给浏览器设置回去，就是这么方便。
-          - 是否在controller之前就设置了session？这个问题可以通过debug来确定
-            - 测试之后，发现debug到controller的方法时，session还没有产生。
-          - 不过这也不影响上面的主要分析，也就是说SESSION没有必要在浏览器设置max-age，如果redis查不到的话就提醒登录。这时候返回给浏览器的response
-          也会设置新的session的。
-            - 但是还是要寻找一下设置session安全性的方法，不然不安全。
-            - server.servlet.session.cookie.secure=true可以设置，还可以设置其他cookie的属性。
-                - 这种方法只设置了浏览器端的数据，redis的市场还是默认的1800，需要在RedisSessionConfig类中设置默认时间，或者手动在代码里面设置。
-          - 最后发现使用server.servlet.session.cookie.max-age=1800可以设置浏览器的session的max-age，但是不知道还有没有其他在java代码中的写法。
-
-          总体来看，浏览器端的时间参数好像并不是很重要，因为服务端查不到的话还是需要在response中重新设置。有的作用可能就是在用户正常使用的情况下，
-          浏览器可以直接删掉过期的cookie（session），然后就不发送这部分数据了。客户端如果在做权限校验，那么直接拿不到值，直接给用户报错，效率更高一些。
-          - 也就是说session的max-age对“防止攻击”用处不大，因为“防止攻击”的重点在服务器。
-          但是对提高效率还是有点用的，因为过期的时候，可以减少一次对redis的访问。
-
-          TODO 这部分内容之后要记录下来，防止忘记。这种问题也应该写在“设计用户登录功能，不能忘记考虑的问题”的checklist里面。
-          */
 
         return new ResponseEntity<Result>(ResultGenerator.genSuccessResult(), HttpStatus.OK);
     }
