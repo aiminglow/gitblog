@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aiminglow.gitblog.dao.UserTokenMapper">
+  <resultMap id="BaseResultMap" type="com.aiminglow.gitblog.entity.UserToken">
+    <id column="token_id" jdbcType="BIGINT" property="tokenId" />
+    <result column="token" jdbcType="CHAR" property="token" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="token_type" jdbcType="TINYINT" property="tokenType" />
+    <result column="create_time" jdbcType="INTEGER" property="createTime" />
+    <result column="reset_time" jdbcType="INTEGER" property="resetTime" />
+    <result column="effective_time" jdbcType="SMALLINT" property="effectiveTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    token_id, token, user_id, token_type, create_time, reset_time, effective_time
+  </sql>
+  <select id="selectByExample" parameterType="com.aiminglow.gitblog.entity.UserTokenExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from user_token
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_token
+    where token_id = #{tokenId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user_token
+    where token_id = #{tokenId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.aiminglow.gitblog.entity.UserTokenExample">
+    delete from user_token
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.aiminglow.gitblog.entity.UserToken">
+    <selectKey keyProperty="tokenId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user_token (token, user_id, token_type, 
+      create_time, reset_time, effective_time
+      )
+    values (#{token,jdbcType=CHAR}, #{userId,jdbcType=BIGINT}, #{tokenType,jdbcType=TINYINT}, 
+      #{createTime,jdbcType=INTEGER}, #{resetTime,jdbcType=INTEGER}, #{effectiveTime,jdbcType=SMALLINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.aiminglow.gitblog.entity.UserToken">
+    <selectKey keyProperty="tokenId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user_token
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="token != null">
+        token,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="tokenType != null">
+        token_type,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="resetTime != null">
+        reset_time,
+      </if>
+      <if test="effectiveTime != null">
+        effective_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="token != null">
+        #{token,jdbcType=CHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="tokenType != null">
+        #{tokenType,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=INTEGER},
+      </if>
+      <if test="resetTime != null">
+        #{resetTime,jdbcType=INTEGER},
+      </if>
+      <if test="effectiveTime != null">
+        #{effectiveTime,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.aiminglow.gitblog.entity.UserTokenExample" resultType="java.lang.Long">
+    select count(*) from user_token
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update user_token
+    <set>
+      <if test="record.tokenId != null">
+        token_id = #{record.tokenId,jdbcType=BIGINT},
+      </if>
+      <if test="record.token != null">
+        token = #{record.token,jdbcType=CHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.tokenType != null">
+        token_type = #{record.tokenType,jdbcType=TINYINT},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.resetTime != null">
+        reset_time = #{record.resetTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.effectiveTime != null">
+        effective_time = #{record.effectiveTime,jdbcType=SMALLINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update user_token
+    set token_id = #{record.tokenId,jdbcType=BIGINT},
+      token = #{record.token,jdbcType=CHAR},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      token_type = #{record.tokenType,jdbcType=TINYINT},
+      create_time = #{record.createTime,jdbcType=INTEGER},
+      reset_time = #{record.resetTime,jdbcType=INTEGER},
+      effective_time = #{record.effectiveTime,jdbcType=SMALLINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aiminglow.gitblog.entity.UserToken">
+    update user_token
+    <set>
+      <if test="token != null">
+        token = #{token,jdbcType=CHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="tokenType != null">
+        token_type = #{tokenType,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=INTEGER},
+      </if>
+      <if test="resetTime != null">
+        reset_time = #{resetTime,jdbcType=INTEGER},
+      </if>
+      <if test="effectiveTime != null">
+        effective_time = #{effectiveTime,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where token_id = #{tokenId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aiminglow.gitblog.entity.UserToken">
+    update user_token
+    set token = #{token,jdbcType=CHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      token_type = #{tokenType,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=INTEGER},
+      reset_time = #{resetTime,jdbcType=INTEGER},
+      effective_time = #{effectiveTime,jdbcType=SMALLINT}
+    where token_id = #{tokenId,jdbcType=BIGINT}
+  </update>
+</mapper>

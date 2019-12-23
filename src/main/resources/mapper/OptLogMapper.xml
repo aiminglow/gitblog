@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aiminglow.gitblog.dao.OptLogMapper">
+  <resultMap id="BaseResultMap" type="com.aiminglow.gitblog.entity.OptLog">
+    <id column="log_id" jdbcType="BIGINT" property="logId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="url_path" jdbcType="VARCHAR" property="urlPath" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="user_agent" jdbcType="VARCHAR" property="userAgent" />
+    <result column="error_msg" jdbcType="VARCHAR" property="errorMsg" />
+    <result column="create_time" jdbcType="INTEGER" property="createTime" />
+    <result column="last_mod_time" jdbcType="INTEGER" property="lastModTime" />
+    <result column="log_status" jdbcType="TINYINT" property="logStatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    log_id, user_id, url_path, ip, user_agent, error_msg, create_time, last_mod_time, 
+    log_status
+  </sql>
+  <select id="selectByExample" parameterType="com.aiminglow.gitblog.entity.OptLogExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from opt_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from opt_log
+    where log_id = #{logId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from opt_log
+    where log_id = #{logId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.aiminglow.gitblog.entity.OptLogExample">
+    delete from opt_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.aiminglow.gitblog.entity.OptLog">
+    <selectKey keyProperty="logId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into opt_log (user_id, url_path, ip, 
+      user_agent, error_msg, create_time, 
+      last_mod_time, log_status)
+    values (#{userId,jdbcType=BIGINT}, #{urlPath,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, 
+      #{userAgent,jdbcType=VARCHAR}, #{errorMsg,jdbcType=VARCHAR}, #{createTime,jdbcType=INTEGER}, 
+      #{lastModTime,jdbcType=INTEGER}, #{logStatus,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.aiminglow.gitblog.entity.OptLog">
+    <selectKey keyProperty="logId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into opt_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="urlPath != null">
+        url_path,
+      </if>
+      <if test="ip != null">
+        ip,
+      </if>
+      <if test="userAgent != null">
+        user_agent,
+      </if>
+      <if test="errorMsg != null">
+        error_msg,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="lastModTime != null">
+        last_mod_time,
+      </if>
+      <if test="logStatus != null">
+        log_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="urlPath != null">
+        #{urlPath,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="userAgent != null">
+        #{userAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="errorMsg != null">
+        #{errorMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=INTEGER},
+      </if>
+      <if test="lastModTime != null">
+        #{lastModTime,jdbcType=INTEGER},
+      </if>
+      <if test="logStatus != null">
+        #{logStatus,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.aiminglow.gitblog.entity.OptLogExample" resultType="java.lang.Long">
+    select count(*) from opt_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update opt_log
+    <set>
+      <if test="record.logId != null">
+        log_id = #{record.logId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.urlPath != null">
+        url_path = #{record.urlPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ip != null">
+        ip = #{record.ip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userAgent != null">
+        user_agent = #{record.userAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.errorMsg != null">
+        error_msg = #{record.errorMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.lastModTime != null">
+        last_mod_time = #{record.lastModTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.logStatus != null">
+        log_status = #{record.logStatus,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update opt_log
+    set log_id = #{record.logId,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      url_path = #{record.urlPath,jdbcType=VARCHAR},
+      ip = #{record.ip,jdbcType=VARCHAR},
+      user_agent = #{record.userAgent,jdbcType=VARCHAR},
+      error_msg = #{record.errorMsg,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=INTEGER},
+      last_mod_time = #{record.lastModTime,jdbcType=INTEGER},
+      log_status = #{record.logStatus,jdbcType=TINYINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aiminglow.gitblog.entity.OptLog">
+    update opt_log
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="urlPath != null">
+        url_path = #{urlPath,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="userAgent != null">
+        user_agent = #{userAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="errorMsg != null">
+        error_msg = #{errorMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=INTEGER},
+      </if>
+      <if test="lastModTime != null">
+        last_mod_time = #{lastModTime,jdbcType=INTEGER},
+      </if>
+      <if test="logStatus != null">
+        log_status = #{logStatus,jdbcType=TINYINT},
+      </if>
+    </set>
+    where log_id = #{logId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aiminglow.gitblog.entity.OptLog">
+    update opt_log
+    set user_id = #{userId,jdbcType=BIGINT},
+      url_path = #{urlPath,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      user_agent = #{userAgent,jdbcType=VARCHAR},
+      error_msg = #{errorMsg,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=INTEGER},
+      last_mod_time = #{lastModTime,jdbcType=INTEGER},
+      log_status = #{logStatus,jdbcType=TINYINT}
+    where log_id = #{logId,jdbcType=BIGINT}
+  </update>
+</mapper>

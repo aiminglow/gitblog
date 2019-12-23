@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aiminglow.gitblog.dao.MyUserMapper">
+    <update id="updateUserByToken">
+        <!-- 如果没有userToken的两个属性传入，那么就可能会更新所有user，这是绝对不能发生的。所以update之前必须校验这两个值 -->
+        <if test="userToken.token != null and userToken.tokenType != null">
+        update user
+        <set>
+            <if test="user.userId != null">
+                user_id = #{user.userId,jdbcType=BIGINT},
+            </if>
+            <if test="user.userName != null">
+                user_name = #{user.userName,jdbcType=VARCHAR},
+            </if>
+            <if test="user.userPassword != null">
+                user_password = #{user.userPassword,jdbcType=CHAR},
+            </if>
+            <if test="user.userEmail != null">
+                user_email = #{user.userEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="user.userStatus != null">
+                user_status = #{user.userStatus,jdbcType=TINYINT},
+            </if>
+            <if test="user.createTime != null">
+                create_time = #{user.createTime,jdbcType=INTEGER},
+            </if>
+            <if test="user.lastModTime != null">
+                last_mod_time = #{user.lastModTime,jdbcType=INTEGER},
+            </if>
+            <if test="user.deleteTime != null">
+                delete_time = #{user.deleteTime,jdbcType=INTEGER},
+            </if>
+        </set>
+        where user_id=(select user_id from user_token
+            <!-- 这里userToken的属性可以更多，然后使用if判断。比如token的创建时间 -->
+            where
+            token=#{userToken.token,jdbcType=CHAR}
+            and
+            token_type=#{userToken.tokenType,jdbcType=TINYINT}
+            )
+    </if>
+    </update>
+</mapper>
