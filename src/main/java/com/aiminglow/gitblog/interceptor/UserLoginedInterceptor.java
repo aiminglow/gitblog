@@ -9,18 +9,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * @ClassName UserLoginInterceptor
- * @Description 用户登录状态校验 拦截器：如果未登录，导向登录页面
+ * @ClassName UserLoginedInterceptor
+ * @Description 用户已登录状态 拦截器：如果已经登录，前往登录页面的话，直接导向用户主页或者其他页面
  * @Author aiminglow
  */
 @Component
-public class UserLoginInterceptor implements HandlerInterceptor {
+public class UserLoginedInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception{
         HttpSession session = request.getSession();
         String uri = request.getRequestURI();
-        if (session.getAttribute("userId") == null) {
-            response.sendRedirect(request.getContextPath() + "/user/login");
+        if (session.getAttribute("userId") != null) {
+            // 这里具体要导向哪个页面还不知道，因为有一部分表还都没有设计，TODO 之后做完设计这里需要改
+            response.sendRedirect(request.getContextPath() + "/user/management");
             return false;
         } else {
             return true;
