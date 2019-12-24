@@ -193,7 +193,7 @@ public class UserController {
                                     String userEmail,
                                         @NotNull(message = PWD_NOT_NULL)
                                     @Pattern(regexp = PatternUtil.ENCODED_PWD_REGEX, message = ENCODED_PWD_NOT_VALID)
-                                    String pwd, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+                                    String pwd, HttpSession session) {
         User user = userService.login(userEmail, pwd);
         if (user == null || user.getUserId() == null)
             return new ResponseEntity<Result>(ResultGenerator.genFailResult("邮箱或密码错误"), HttpStatus.BAD_REQUEST);
