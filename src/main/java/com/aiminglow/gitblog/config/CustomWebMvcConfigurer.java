@@ -23,7 +23,7 @@ public class CustomWebMvcConfigurer implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(userLoginInterceptor).addPathPatterns("/**").excludePathPatterns("/user/**")
-            .excludePathPatterns("/common/**");
+            .excludePathPatterns("/common/**").excludePathPatterns("/error");
         registry.addInterceptor(userLoginedInterceptor).addPathPatterns("/user/login");
     }
 }
