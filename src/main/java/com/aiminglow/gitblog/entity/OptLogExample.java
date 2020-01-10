@@ -164,6 +164,76 @@ public class OptLogExample {
             return (Criteria) this;
         }
 
+        public Criteria andOptNameIsNull() {
+            addCriterion("opt_name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOptNameIsNotNull() {
+            addCriterion("opt_name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOptNameEqualTo(String value) {
+            addCriterion("opt_name =", value, "optName");
+            return (Criteria) this;
+        }
+
+        public Criteria andOptNameNotEqualTo(String value) {
+            addCriterion("opt_name <>", value, "optName");
+            return (Criteria) this;
+        }
+
+        public Criteria andOptNameGreaterThan(String value) {
+            addCriterion("opt_name >", value, "optName");
+            return (Criteria) this;
+        }
+
+        public Criteria andOptNameGreaterThanOrEqualTo(String value) {
+            addCriterion("opt_name >=", value, "optName");
+            return (Criteria) this;
+        }
+
+        public Criteria andOptNameLessThan(String value) {
+            addCriterion("opt_name <", value, "optName");
+            return (Criteria) this;
+        }
+
+        public Criteria andOptNameLessThanOrEqualTo(String value) {
+            addCriterion("opt_name <=", value, "optName");
+            return (Criteria) this;
+        }
+
+        public Criteria andOptNameLike(String value) {
+            addCriterion("opt_name like", value, "optName");
+            return (Criteria) this;
+        }
+
+        public Criteria andOptNameNotLike(String value) {
+            addCriterion("opt_name not like", value, "optName");
+            return (Criteria) this;
+        }
+
+        public Criteria andOptNameIn(List<String> values) {
+            addCriterion("opt_name in", values, "optName");
+            return (Criteria) this;
+        }
+
+        public Criteria andOptNameNotIn(List<String> values) {
+            addCriterion("opt_name not in", values, "optName");
+            return (Criteria) this;
+        }
+
+        public Criteria andOptNameBetween(String value1, String value2) {
+            addCriterion("opt_name between", value1, value2, "optName");
+            return (Criteria) this;
+        }
+
+        public Criteria andOptNameNotBetween(String value1, String value2) {
+            addCriterion("opt_name not between", value1, value2, "optName");
+            return (Criteria) this;
+        }
+
         public Criteria andUserIdIsNull() {
             addCriterion("user_id is null");
             return (Criteria) this;
@@ -224,73 +294,213 @@ public class OptLogExample {
             return (Criteria) this;
         }
 
-        public Criteria andUrlPathIsNull() {
-            addCriterion("url_path is null");
+        public Criteria andRequestUriIsNull() {
+            addCriterion("request_uri is null");
             return (Criteria) this;
         }
 
-        public Criteria andUrlPathIsNotNull() {
-            addCriterion("url_path is not null");
+        public Criteria andRequestUriIsNotNull() {
+            addCriterion("request_uri is not null");
             return (Criteria) this;
         }
 
-        public Criteria andUrlPathEqualTo(String value) {
-            addCriterion("url_path =", value, "urlPath");
+        public Criteria andRequestUriEqualTo(String value) {
+            addCriterion("request_uri =", value, "requestUri");
             return (Criteria) this;
         }
 
-        public Criteria andUrlPathNotEqualTo(String value) {
-            addCriterion("url_path <>", value, "urlPath");
+        public Criteria andRequestUriNotEqualTo(String value) {
+            addCriterion("request_uri <>", value, "requestUri");
             return (Criteria) this;
         }
 
-        public Criteria andUrlPathGreaterThan(String value) {
-            addCriterion("url_path >", value, "urlPath");
+        public Criteria andRequestUriGreaterThan(String value) {
+            addCriterion("request_uri >", value, "requestUri");
             return (Criteria) this;
         }
 
-        public Criteria andUrlPathGreaterThanOrEqualTo(String value) {
-            addCriterion("url_path >=", value, "urlPath");
+        public Criteria andRequestUriGreaterThanOrEqualTo(String value) {
+            addCriterion("request_uri >=", value, "requestUri");
             return (Criteria) this;
         }
 
-        public Criteria andUrlPathLessThan(String value) {
-            addCriterion("url_path <", value, "urlPath");
+        public Criteria andRequestUriLessThan(String value) {
+            addCriterion("request_uri <", value, "requestUri");
             return (Criteria) this;
         }
 
-        public Criteria andUrlPathLessThanOrEqualTo(String value) {
-            addCriterion("url_path <=", value, "urlPath");
+        public Criteria andRequestUriLessThanOrEqualTo(String value) {
+            addCriterion("request_uri <=", value, "requestUri");
             return (Criteria) this;
         }
 
-        public Criteria andUrlPathLike(String value) {
-            addCriterion("url_path like", value, "urlPath");
+        public Criteria andRequestUriLike(String value) {
+            addCriterion("request_uri like", value, "requestUri");
             return (Criteria) this;
         }
 
-        public Criteria andUrlPathNotLike(String value) {
-            addCriterion("url_path not like", value, "urlPath");
+        public Criteria andRequestUriNotLike(String value) {
+            addCriterion("request_uri not like", value, "requestUri");
             return (Criteria) this;
         }
 
-        public Criteria andUrlPathIn(List<String> values) {
-            addCriterion("url_path in", values, "urlPath");
+        public Criteria andRequestUriIn(List<String> values) {
+            addCriterion("request_uri in", values, "requestUri");
             return (Criteria) this;
         }
 
-        public Criteria andUrlPathNotIn(List<String> values) {
-            addCriterion("url_path not in", values, "urlPath");
+        public Criteria andRequestUriNotIn(List<String> values) {
+            addCriterion("request_uri not in", values, "requestUri");
             return (Criteria) this;
         }
 
-        public Criteria andUrlPathBetween(String value1, String value2) {
-            addCriterion("url_path between", value1, value2, "urlPath");
+        public Criteria andRequestUriBetween(String value1, String value2) {
+            addCriterion("request_uri between", value1, value2, "requestUri");
             return (Criteria) this;
         }
 
-        public Criteria andUrlPathNotBetween(String value1, String value2) {
-            addCriterion("url_path not between", value1, value2, "urlPath");
+        public Criteria andRequestUriNotBetween(String value1, String value2) {
+            addCriterion("request_uri not between", value1, value2, "requestUri");
+            return (Criteria) this;
+        }
+
+        public Criteria andMethodIsNull() {
+            addCriterion("`method` is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMethodIsNotNull() {
+            addCriterion("`method` is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMethodEqualTo(String value) {
+            addCriterion("`method` =", value, "method");
+            return (Criteria) this;
+        }
+
+        public Criteria andMethodNotEqualTo(String value) {
+            addCriterion("`method` <>", value, "method");
+            return (Criteria) this;
+        }
+
+        public Criteria andMethodGreaterThan(String value) {
+            addCriterion("`method` >", value, "method");
+            return (Criteria) this;
+        }
+
+        public Criteria andMethodGreaterThanOrEqualTo(String value) {
+            addCriterion("`method` >=", value, "method");
+            return (Criteria) this;
+        }
+
+        public Criteria andMethodLessThan(String value) {
+            addCriterion("`method` <", value, "method");
+            return (Criteria) this;
+        }
+
+        public Criteria andMethodLessThanOrEqualTo(String value) {
+            addCriterion("`method` <=", value, "method");
+            return (Criteria) this;
+        }
+
+        public Criteria andMethodLike(String value) {
+            addCriterion("`method` like", value, "method");
+            return (Criteria) this;
+        }
+
+        public Criteria andMethodNotLike(String value) {
+            addCriterion("`method` not like", value, "method");
+            return (Criteria) this;
+        }
+
+        public Criteria andMethodIn(List<String> values) {
+            addCriterion("`method` in", values, "method");
+            return (Criteria) this;
+        }
+
+        public Criteria andMethodNotIn(List<String> values) {
+            addCriterion("`method` not in", values, "method");
+            return (Criteria) this;
+        }
+
+        public Criteria andMethodBetween(String value1, String value2) {
+            addCriterion("`method` between", value1, value2, "method");
+            return (Criteria) this;
+        }
+
+        public Criteria andMethodNotBetween(String value1, String value2) {
+            addCriterion("`method` not between", value1, value2, "method");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamsIsNull() {
+            addCriterion("params is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamsIsNotNull() {
+            addCriterion("params is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamsEqualTo(String value) {
+            addCriterion("params =", value, "params");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamsNotEqualTo(String value) {
+            addCriterion("params <>", value, "params");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamsGreaterThan(String value) {
+            addCriterion("params >", value, "params");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamsGreaterThanOrEqualTo(String value) {
+            addCriterion("params >=", value, "params");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamsLessThan(String value) {
+            addCriterion("params <", value, "params");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamsLessThanOrEqualTo(String value) {
+            addCriterion("params <=", value, "params");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamsLike(String value) {
+            addCriterion("params like", value, "params");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamsNotLike(String value) {
+            addCriterion("params not like", value, "params");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamsIn(List<String> values) {
+            addCriterion("params in", values, "params");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamsNotIn(List<String> values) {
+            addCriterion("params not in", values, "params");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamsBetween(String value1, String value2) {
+            addCriterion("params between", value1, value2, "params");
+            return (Criteria) this;
+        }
+
+        public Criteria andParamsNotBetween(String value1, String value2) {
+            addCriterion("params not between", value1, value2, "params");
             return (Criteria) this;
         }
 
@@ -564,63 +774,63 @@ public class OptLogExample {
             return (Criteria) this;
         }
 
-        public Criteria andLastModTimeIsNull() {
-            addCriterion("last_mod_time is null");
+        public Criteria andExecuteTimeIsNull() {
+            addCriterion("execute_time is null");
             return (Criteria) this;
         }
 
-        public Criteria andLastModTimeIsNotNull() {
-            addCriterion("last_mod_time is not null");
+        public Criteria andExecuteTimeIsNotNull() {
+            addCriterion("execute_time is not null");
             return (Criteria) this;
         }
 
-        public Criteria andLastModTimeEqualTo(Integer value) {
-            addCriterion("last_mod_time =", value, "lastModTime");
+        public Criteria andExecuteTimeEqualTo(Short value) {
+            addCriterion("execute_time =", value, "executeTime");
             return (Criteria) this;
         }
 
-        public Criteria andLastModTimeNotEqualTo(Integer value) {
-            addCriterion("last_mod_time <>", value, "lastModTime");
+        public Criteria andExecuteTimeNotEqualTo(Short value) {
+            addCriterion("execute_time <>", value, "executeTime");
             return (Criteria) this;
         }
 
-        public Criteria andLastModTimeGreaterThan(Integer value) {
-            addCriterion("last_mod_time >", value, "lastModTime");
+        public Criteria andExecuteTimeGreaterThan(Short value) {
+            addCriterion("execute_time >", value, "executeTime");
             return (Criteria) this;
         }
 
-        public Criteria andLastModTimeGreaterThanOrEqualTo(Integer value) {
-            addCriterion("last_mod_time >=", value, "lastModTime");
+        public Criteria andExecuteTimeGreaterThanOrEqualTo(Short value) {
+            addCriterion("execute_time >=", value, "executeTime");
             return (Criteria) this;
         }
 
-        public Criteria andLastModTimeLessThan(Integer value) {
-            addCriterion("last_mod_time <", value, "lastModTime");
+        public Criteria andExecuteTimeLessThan(Short value) {
+            addCriterion("execute_time <", value, "executeTime");
             return (Criteria) this;
         }
 
-        public Criteria andLastModTimeLessThanOrEqualTo(Integer value) {
-            addCriterion("last_mod_time <=", value, "lastModTime");
+        public Criteria andExecuteTimeLessThanOrEqualTo(Short value) {
+            addCriterion("execute_time <=", value, "executeTime");
             return (Criteria) this;
         }
 
-        public Criteria andLastModTimeIn(List<Integer> values) {
-            addCriterion("last_mod_time in", values, "lastModTime");
+        public Criteria andExecuteTimeIn(List<Short> values) {
+            addCriterion("execute_time in", values, "executeTime");
             return (Criteria) this;
         }
 
-        public Criteria andLastModTimeNotIn(List<Integer> values) {
-            addCriterion("last_mod_time not in", values, "lastModTime");
+        public Criteria andExecuteTimeNotIn(List<Short> values) {
+            addCriterion("execute_time not in", values, "executeTime");
             return (Criteria) this;
         }
 
-        public Criteria andLastModTimeBetween(Integer value1, Integer value2) {
-            addCriterion("last_mod_time between", value1, value2, "lastModTime");
+        public Criteria andExecuteTimeBetween(Short value1, Short value2) {
+            addCriterion("execute_time between", value1, value2, "executeTime");
             return (Criteria) this;
         }
 
-        public Criteria andLastModTimeNotBetween(Integer value1, Integer value2) {
-            addCriterion("last_mod_time not between", value1, value2, "lastModTime");
+        public Criteria andExecuteTimeNotBetween(Short value1, Short value2) {
+            addCriterion("execute_time not between", value1, value2, "executeTime");
             return (Criteria) this;
         }
 
