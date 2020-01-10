@@ -5,9 +5,15 @@ import java.io.Serializable;
 public class OptLog implements Serializable {
     private Long logId;
 
+    private String optName;
+
     private Long userId;
 
-    private String urlPath;
+    private String requestUri;
+
+    private String method;
+
+    private String params;
 
     private String ip;
 
@@ -17,7 +23,7 @@ public class OptLog implements Serializable {
 
     private Integer createTime;
 
-    private Integer lastModTime;
+    private Short executeTime;
 
     private Byte logStatus;
 
@@ -31,6 +37,14 @@ public class OptLog implements Serializable {
         this.logId = logId;
     }
 
+    public String getOptName() {
+        return optName;
+    }
+
+    public void setOptName(String optName) {
+        this.optName = optName == null ? null : optName.trim();
+    }
+
     public Long getUserId() {
         return userId;
     }
@@ -39,12 +53,28 @@ public class OptLog implements Serializable {
         this.userId = userId;
     }
 
-    public String getUrlPath() {
-        return urlPath;
+    public String getRequestUri() {
+        return requestUri;
     }
 
-    public void setUrlPath(String urlPath) {
-        this.urlPath = urlPath == null ? null : urlPath.trim();
+    public void setRequestUri(String requestUri) {
+        this.requestUri = requestUri == null ? null : requestUri.trim();
+    }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method == null ? null : method.trim();
+    }
+
+    public String getParams() {
+        return params;
+    }
+
+    public void setParams(String params) {
+        this.params = params == null ? null : params.trim();
     }
 
     public String getIp() {
@@ -79,12 +109,12 @@ public class OptLog implements Serializable {
         this.createTime = createTime;
     }
 
-    public Integer getLastModTime() {
-        return lastModTime;
+    public Short getExecuteTime() {
+        return executeTime;
     }
 
-    public void setLastModTime(Integer lastModTime) {
-        this.lastModTime = lastModTime;
+    public void setExecuteTime(Short executeTime) {
+        this.executeTime = executeTime;
     }
 
     public Byte getLogStatus() {
@@ -102,13 +132,16 @@ public class OptLog implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", logId=").append(logId);
+        sb.append(", optName=").append(optName);
         sb.append(", userId=").append(userId);
-        sb.append(", urlPath=").append(urlPath);
+        sb.append(", requestUri=").append(requestUri);
+        sb.append(", method=").append(method);
+        sb.append(", params=").append(params);
         sb.append(", ip=").append(ip);
         sb.append(", userAgent=").append(userAgent);
         sb.append(", errorMsg=").append(errorMsg);
         sb.append(", createTime=").append(createTime);
-        sb.append(", lastModTime=").append(lastModTime);
+        sb.append(", executeTime=").append(executeTime);
         sb.append(", logStatus=").append(logStatus);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

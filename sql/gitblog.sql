@@ -51,14 +51,18 @@ engine=InnoDB DEFAULT CHARSET=utf8mb4;
  */
 create table opt_log (
     log_id bigint unsigned auto_increment comment 'log id',
+    opt_name varchar(50) comment '操作名称',
     user_id bigint unsigned not null comment '用户id',
-    url_path varchar(50) not null comment '请求路径',
+    request_uri varchar(1000) comment '请求的uri',
+    method varchar(200) comment '请求访问的controller层方法',
+    -- 如果是保存一个博客的内容，那么方法的参数就会非常的大，所以需要能在注解中标注是否要保存这个字段。
+    params varchar(500) comment '被访问的方法的传入参数',
     ip varchar(50) comment '用户IP地址',
     user_agent varchar(1000) comment '浏览器UA，从request中的header拿到',
-    error_msg varchar(1500) comment '报错信息',
+    error_msg varchar(1000) comment '报错信息',
     create_time int unsigned not null comment '日志触发时间',
-    last_mod_time int unsigned comment '最后修改时间',
-    log_status tinyint not null comment '日志状态：0-交易触发，未完成； 1-交易触发，成功完成； -1-交易触发，失败',
+    execute_time smallint unsigned comment '方法执行所用的时间，毫秒为单位',
+    log_status tinyint not null comment '日志状态：1-成功； -1-失败',
     primary key (log_id),
     foreign key (user_id) references user(user_id)
 )

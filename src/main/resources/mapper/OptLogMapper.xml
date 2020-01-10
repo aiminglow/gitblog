@@ -3,13 +3,16 @@
 <mapper namespace="com.aiminglow.gitblog.dao.OptLogMapper">
   <resultMap id="BaseResultMap" type="com.aiminglow.gitblog.entity.OptLog">
     <id column="log_id" jdbcType="BIGINT" property="logId" />
+    <result column="opt_name" jdbcType="VARCHAR" property="optName" />
     <result column="user_id" jdbcType="BIGINT" property="userId" />
-    <result column="url_path" jdbcType="VARCHAR" property="urlPath" />
+    <result column="request_uri" jdbcType="VARCHAR" property="requestUri" />
+    <result column="method" jdbcType="VARCHAR" property="method" />
+    <result column="params" jdbcType="VARCHAR" property="params" />
     <result column="ip" jdbcType="VARCHAR" property="ip" />
     <result column="user_agent" jdbcType="VARCHAR" property="userAgent" />
     <result column="error_msg" jdbcType="VARCHAR" property="errorMsg" />
     <result column="create_time" jdbcType="INTEGER" property="createTime" />
-    <result column="last_mod_time" jdbcType="INTEGER" property="lastModTime" />
+    <result column="execute_time" jdbcType="SMALLINT" property="executeTime" />
     <result column="log_status" jdbcType="TINYINT" property="logStatus" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -71,8 +74,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    log_id, user_id, url_path, ip, user_agent, error_msg, create_time, last_mod_time, 
-    log_status
+    log_id, opt_name, user_id, request_uri, `method`, params, ip, user_agent, error_msg, 
+    create_time, execute_time, log_status
   </sql>
   <select id="selectByExample" parameterType="com.aiminglow.gitblog.entity.OptLogExample" resultMap="BaseResultMap">
     select
@@ -109,12 +112,14 @@
     <selectKey keyProperty="logId" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into opt_log (user_id, url_path, ip, 
+    insert into opt_log (opt_name, user_id, request_uri, 
+      `method`, params, ip, 
       user_agent, error_msg, create_time, 
-      last_mod_time, log_status)
-    values (#{userId,jdbcType=BIGINT}, #{urlPath,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, 
+      execute_time, log_status)
+    values (#{optName,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, #{requestUri,jdbcType=VARCHAR}, 
+      #{method,jdbcType=VARCHAR}, #{params,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, 
       #{userAgent,jdbcType=VARCHAR}, #{errorMsg,jdbcType=VARCHAR}, #{createTime,jdbcType=INTEGER}, 
-      #{lastModTime,jdbcType=INTEGER}, #{logStatus,jdbcType=TINYINT})
+      #{executeTime,jdbcType=SMALLINT}, #{logStatus,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="com.aiminglow.gitblog.entity.OptLog">
     <selectKey keyProperty="logId" order="AFTER" resultType="java.lang.Long">
@@ -122,11 +127,20 @@
     </selectKey>
     insert into opt_log
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="optName != null">
+        opt_name,
+      </if>
       <if test="userId != null">
         user_id,
       </if>
-      <if test="urlPath != null">
-        url_path,
+      <if test="requestUri != null">
+        request_uri,
+      </if>
+      <if test="method != null">
+        `method`,
+      </if>
+      <if test="params != null">
+        params,
       </if>
       <if test="ip != null">
         ip,
@@ -140,19 +154,28 @@
       <if test="createTime != null">
         create_time,
       </if>
-      <if test="lastModTime != null">
-        last_mod_time,
+      <if test="executeTime != null">
+        execute_time,
       </if>
       <if test="logStatus != null">
         log_status,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="optName != null">
+        #{optName,jdbcType=VARCHAR},
+      </if>
       <if test="userId != null">
         #{userId,jdbcType=BIGINT},
       </if>
-      <if test="urlPath != null">
-        #{urlPath,jdbcType=VARCHAR},
+      <if test="requestUri != null">
+        #{requestUri,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null">
+        #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="params != null">
+        #{params,jdbcType=VARCHAR},
       </if>
       <if test="ip != null">
         #{ip,jdbcType=VARCHAR},
@@ -166,8 +189,8 @@
       <if test="createTime != null">
         #{createTime,jdbcType=INTEGER},
       </if>
-      <if test="lastModTime != null">
-        #{lastModTime,jdbcType=INTEGER},
+      <if test="executeTime != null">
+        #{executeTime,jdbcType=SMALLINT},
       </if>
       <if test="logStatus != null">
         #{logStatus,jdbcType=TINYINT},
@@ -186,11 +209,20 @@
       <if test="record.logId != null">
         log_id = #{record.logId,jdbcType=BIGINT},
       </if>
+      <if test="record.optName != null">
+        opt_name = #{record.optName,jdbcType=VARCHAR},
+      </if>
       <if test="record.userId != null">
         user_id = #{record.userId,jdbcType=BIGINT},
       </if>
-      <if test="record.urlPath != null">
-        url_path = #{record.urlPath,jdbcType=VARCHAR},
+      <if test="record.requestUri != null">
+        request_uri = #{record.requestUri,jdbcType=VARCHAR},
+      </if>
+      <if test="record.method != null">
+        `method` = #{record.method,jdbcType=VARCHAR},
+      </if>
+      <if test="record.params != null">
+        params = #{record.params,jdbcType=VARCHAR},
       </if>
       <if test="record.ip != null">
         ip = #{record.ip,jdbcType=VARCHAR},
@@ -204,8 +236,8 @@
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=INTEGER},
       </if>
-      <if test="record.lastModTime != null">
-        last_mod_time = #{record.lastModTime,jdbcType=INTEGER},
+      <if test="record.executeTime != null">
+        execute_time = #{record.executeTime,jdbcType=SMALLINT},
       </if>
       <if test="record.logStatus != null">
         log_status = #{record.logStatus,jdbcType=TINYINT},
@@ -218,13 +250,16 @@
   <update id="updateByExample" parameterType="map">
     update opt_log
     set log_id = #{record.logId,jdbcType=BIGINT},
+      opt_name = #{record.optName,jdbcType=VARCHAR},
       user_id = #{record.userId,jdbcType=BIGINT},
-      url_path = #{record.urlPath,jdbcType=VARCHAR},
+      request_uri = #{record.requestUri,jdbcType=VARCHAR},
+      `method` = #{record.method,jdbcType=VARCHAR},
+      params = #{record.params,jdbcType=VARCHAR},
       ip = #{record.ip,jdbcType=VARCHAR},
       user_agent = #{record.userAgent,jdbcType=VARCHAR},
       error_msg = #{record.errorMsg,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=INTEGER},
-      last_mod_time = #{record.lastModTime,jdbcType=INTEGER},
+      execute_time = #{record.executeTime,jdbcType=SMALLINT},
       log_status = #{record.logStatus,jdbcType=TINYINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -233,11 +268,20 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.aiminglow.gitblog.entity.OptLog">
     update opt_log
     <set>
+      <if test="optName != null">
+        opt_name = #{optName,jdbcType=VARCHAR},
+      </if>
       <if test="userId != null">
         user_id = #{userId,jdbcType=BIGINT},
       </if>
-      <if test="urlPath != null">
-        url_path = #{urlPath,jdbcType=VARCHAR},
+      <if test="requestUri != null">
+        request_uri = #{requestUri,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null">
+        `method` = #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="params != null">
+        params = #{params,jdbcType=VARCHAR},
       </if>
       <if test="ip != null">
         ip = #{ip,jdbcType=VARCHAR},
@@ -251,8 +295,8 @@
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=INTEGER},
       </if>
-      <if test="lastModTime != null">
-        last_mod_time = #{lastModTime,jdbcType=INTEGER},
+      <if test="executeTime != null">
+        execute_time = #{executeTime,jdbcType=SMALLINT},
       </if>
       <if test="logStatus != null">
         log_status = #{logStatus,jdbcType=TINYINT},
@@ -262,13 +306,16 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.aiminglow.gitblog.entity.OptLog">
     update opt_log
-    set user_id = #{userId,jdbcType=BIGINT},
-      url_path = #{urlPath,jdbcType=VARCHAR},
+    set opt_name = #{optName,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      request_uri = #{requestUri,jdbcType=VARCHAR},
+      `method` = #{method,jdbcType=VARCHAR},
+      params = #{params,jdbcType=VARCHAR},
       ip = #{ip,jdbcType=VARCHAR},
       user_agent = #{userAgent,jdbcType=VARCHAR},
       error_msg = #{errorMsg,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=INTEGER},
-      last_mod_time = #{lastModTime,jdbcType=INTEGER},
+      execute_time = #{executeTime,jdbcType=SMALLINT},
       log_status = #{logStatus,jdbcType=TINYINT}
     where log_id = #{logId,jdbcType=BIGINT}
   </update>
